@@ -79,6 +79,12 @@ th, td {
     border-bottom: 1px solid #eee;
 }
 
+/* Light green rows (no hover effect) */
+tr {
+    background-color: #e6f9e6;
+}
+
+/* Disable hover change */
 tr:hover {
-    background-color: #f1f7ff;
+    background-color: #e6f9e6;
 }
