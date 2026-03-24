@@ -4,7 +4,6 @@ include 'includes/db.php';
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $level = isset($_GET['level']) ? trim($_GET['level']) : '';
 
-<<<<<<< HEAD
 if ($level !== 'Undergraduate' && $level !== 'Postgraduate' && $level !== '') {
     $level = '';
 }
@@ -58,14 +57,6 @@ $queryString = http_build_query([
     'search' => $search,
     'level' => $level
 ]);
-=======
-$result = $conn->query($sql);
-
-// Simple query check
-if (!$result) {
-    die("Query failed: " . $conn->error);
-}
->>>>>>> ff9ff138afdf47fba92a769acf06e3b1b568c1b5
 ?>
 
 <!DOCTYPE html>
@@ -139,22 +130,6 @@ if (!$result) {
         </div>
     <?php endif; ?>
 </div>
-=======
-<?php if ($result->num_rows > 0): ?>
-
-    <?php while ($row = $result->fetch_assoc()): ?>
-        <div class="programme-card">
-            <h2><?= htmlspecialchars($row['ProgrammeName']) ?></h2>
-            <p><strong>Level:</strong> <?= htmlspecialchars($row['LevelName']) ?></p>
-            <p><?= htmlspecialchars($row['Description']) ?></p>
-            <a href="programme.php?id=<?= $row['ProgrammeID'] ?>">View Details</a>
-        </div>
-    <?php endwhile; ?>
-
-<?php else: ?>
-    <p>No programmes found.</p>
-<?php endif; ?>
->>>>>>> ff9ff138afdf47fba92a769acf06e3b1b568c1b5
 
 </body>
 </html>
