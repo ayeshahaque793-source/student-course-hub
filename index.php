@@ -73,7 +73,6 @@ $queryString = http_build_query([
     <h1>Student Course Hub</h1>
     <p>Explore our available undergraduate and postgraduate programmes.</p>
 
-<<<<<<< HEAD
     <form method="GET" action="index.php" class="search-filter-box">
         <div class="form-row">
             <div class="form-group">
