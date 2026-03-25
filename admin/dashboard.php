@@ -35,6 +35,6 @@ if (!isset($_SESSION['admin_id'])) {
     <p><a href="students.php">View Interested Students</a></p>
     <p><a href="logout.php">Logout</a></p>
 </div>
-
+<p><a href="programmes.php">Manage Programmes</a></p>
 </body>
 </html>

@@ -2,50 +2,62 @@
 include 'includes/db.php';
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
-$level = isset($_GET['level']) ? trim($_GET['level']) : '';
+$level  = isset($_GET['level']) ? trim($_GET['level']) : '';
 
 if ($level !== 'Undergraduate' && $level !== 'Postgraduate' && $level !== '') {
     $level = '';
 }
 
 if ($search !== '' && $level !== '') {
-    $sql = "SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
-            FROM Programmes p
-            JOIN Levels l ON p.LevelID = l.LevelID
-            WHERE (p.ProgrammeName LIKE ? OR p.Description LIKE ?)
-            AND l.LevelName = ?
-            ORDER BY p.ProgrammeName ASC";
+
+    $sql = "
+        SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
+        FROM Programmes p
+        JOIN Levels l ON p.LevelID = l.LevelID
+        WHERE (p.ProgrammeName LIKE ? OR p.Description LIKE ?)
+        AND l.LevelName = ?
+        ORDER BY p.ProgrammeName ASC
+    ";
 
     $stmt = $conn->prepare($sql);
-    $likeSearch = "%" . $search . "%";
+    $likeSearch = "%{$search}%";
     $stmt->bind_param("sss", $likeSearch, $likeSearch, $level);
-}
-elseif ($search !== '') {
-    $sql = "SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
-            FROM Programmes p
-            JOIN Levels l ON p.LevelID = l.LevelID
-            WHERE p.ProgrammeName LIKE ? OR p.Description LIKE ?
-            ORDER BY p.ProgrammeName ASC";
+
+} elseif ($search !== '') {
+
+    $sql = "
+        SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
+        FROM Programmes p
+        JOIN Levels l ON p.LevelID = l.LevelID
+        WHERE p.ProgrammeName LIKE ? OR p.Description LIKE ?
+        ORDER BY p.ProgrammeName ASC
+    ";
 
     $stmt = $conn->prepare($sql);
-    $likeSearch = "%" . $search . "%";
+    $likeSearch = "%{$search}%";
     $stmt->bind_param("ss", $likeSearch, $likeSearch);
-}
-elseif ($level !== '') {
-    $sql = "SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
-            FROM Programmes p
-            JOIN Levels l ON p.LevelID = l.LevelID
-            WHERE l.LevelName = ?
-            ORDER BY p.ProgrammeName ASC";
+
+} elseif ($level !== '') {
+
+    $sql = "
+        SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
+        FROM Programmes p
+        JOIN Levels l ON p.LevelID = l.LevelID
+        WHERE l.LevelName = ?
+        ORDER BY p.ProgrammeName ASC
+    ";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $level);
-}
-else {
-    $sql = "SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
-            FROM Programmes p
-            JOIN Levels l ON p.LevelID = l.LevelID
-            ORDER BY p.ProgrammeName ASC";
+
+} else {
+
+    $sql = "
+        SELECT p.ProgrammeID, p.ProgrammeName, p.Description, l.LevelName
+        FROM Programmes p
+        JOIN Levels l ON p.LevelID = l.LevelID
+        ORDER BY p.ProgrammeName ASC
+    ";
 
     $stmt = $conn->prepare($sql);
 }
@@ -55,7 +67,7 @@ $result = $stmt->get_result();
 
 $queryString = http_build_query([
     'search' => $search,
-    'level' => $level
+    'level'  => $level
 ]);
 ?>
 
@@ -75,12 +87,13 @@ $queryString = http_build_query([
 
     <form method="GET" action="index.php" class="search-filter-box">
         <div class="form-row">
+
             <div class="form-group">
                 <label for="search">Search Programmes</label>
                 <input 
-                    type="text" 
-                    id="search" 
-                    name="search" 
+                    type="text"
+                    id="search"
+                    name="search"
                     placeholder="e.g. Cyber Security, Data Science"
                     value="<?php echo htmlspecialchars($search); ?>"
                 >
@@ -98,6 +111,7 @@ $queryString = http_build_query([
                     </option>
                 </select>
             </div>
+
         </div>
 
         <div class="button-row">
