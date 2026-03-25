@@ -2,8 +2,8 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 40px;
-    background: linear-gradient(135deg, #2eb2b9, #d9e4f5);
-    color: #2c3e50;
+    background: linear-gradient(135deg, #e193b9, #ec94ba);
+    color: #000102;
 }
 
 /* Container */
@@ -14,7 +14,7 @@ body {
 
 /* Headings */
 h1 {
-    color: #5b2c83;
+    color: #000000;
     text-align: center;
     margin-bottom: 30px;
 }
